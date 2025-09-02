@@ -43,36 +43,7 @@ float readPitch(int channel, MPU9250_asukiaaa &mpu) {
   float ay = mpu.accelY();
   float az = mpu.accelZ();
 
-  float pitch = atan2(-ax, sqrt(ay * ay + az * az)) * 180.0 / PI;
-
-  tca.closeChannel(channel);
-  return pitch;
-}
-
-void setReferenceAngles() {
-  float sumNeckAngle = 0.0;
-  float sumBodyAngle = 0.0;
-  int count = 0;
-  
-  unsigned long startTime = millis();
-  while (millis() - startTime < 5000) {
-    sumNeckAngle += readPitch(NECK_CHANNEL, mpuNeck);
-    sumBodyAngle += readPitch(BODY_CHANNEL, mpuBody);
-    count++;
-    delay(50);
-  }
-  
-  neckAngleOffset = sumNeckAngle / count;
-  bodyAngleOffset = sumBodyAngle / count;
-}
-
-
-void setup() {
-  Serial.begin(115200);
-  Wire.begin();
-
-  SerialBT.begin("거북목_알리미");
-  Serial.println("블루투스 장치 '거북목_알리미'를 시작합니다.");
+  float pitch = atan2(-ax, s세_알리미'를 시작합니다.");
 
   tca.begin();
   Serial.println("TCA9548A 초기화 완료");
@@ -138,4 +109,5 @@ void loop() {
     badPostureStartTime = 0;
     delay(1000);
   }
+
 }
